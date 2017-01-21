@@ -1,6 +1,10 @@
 package com.gmail.genarion.eventday;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class lista_aconteciActivity extends AppCompatActivity {
     private final String ACTIVITY = "lista_aconteciActivity";
@@ -35,47 +42,39 @@ public class lista_aconteciActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        //.setAction("Action", null).show();
                 startActivity(new Intent(getApplicationContext(),AnadirAcontecimientoActivity.class));
             }
         });
 
 
         // Crear elementos
-        items = new ArrayList<AcontecimientoItem>();
-        items.add(new AcontecimientoItem("1", "Primer acontecimiento"));
-        items.add(new AcontecimientoItem("2", "prime acontecimiento"));
-        items.add(new AcontecimientoItem("3", "Segundo acontecimiento"));
-        items.add(new AcontecimientoItem("4", "tercer acontecimiento"));
-        items.add(new AcontecimientoItem("5", "cuarto acontecimiento"));
-        items.add(new AcontecimientoItem("6", "quitno acontecimiento"));
-        items.add(new AcontecimientoItem("7", "sexto acontecimiento"));
-        items.add(new AcontecimientoItem("8", "septimo acontecimiento"));
+        rellenaLista();
+
+
 
         // Se inicializa el RecyclerView
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        //final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // Se crea el Adaptador con los datos
-        AcontecimientoAdapter adaptador = new AcontecimientoAdapter(items);
+        //AcontecimientoAdapter adaptador = new AcontecimientoAdapter(items);
 
         // Se asocia el elemento con una acción al pulsar el elemento
-        adaptador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //adaptador.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
                 // Acción al pulsar el elemento
-                MyLog.d("ACTIVITY", "Click en RecyclerView");
-                int position = recyclerView.getChildAdapterPosition(v);
-                Toast toast = Toast.makeText(lista_aconteciActivity.this, String.valueOf(position) + " " + items.get(position).getId() + " " + items.get(position).getNombre(), Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+        //        MyLog.d("ACTIVITY", "Click en RecyclerView");
+        //        int position = recyclerView.getChildAdapterPosition(v);
+        //        Toast toast = Toast.makeText(lista_aconteciActivity.this, String.valueOf(position) + " " + items.get(position).getId() + " " + items.get(position).getNombre(), Toast.LENGTH_SHORT);
+        //        toast.show();
+        //    }
+        //});
 
         // Se asocia el Adaptador al RecyclerView
-        recyclerView.setAdapter(adaptador);
+        //recyclerView.setAdapter(adaptador);
 
         // Se muestra el RecyclerView en vertical
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -140,5 +139,90 @@ public class lista_aconteciActivity extends AppCompatActivity {
         MyLog.d(ACTIVITY,"Estamos en onDestroy"); //creación del log del onDestroy
         // TODO Auto-generated method stub
         super.onDestroy();
+    }
+
+    private void rellenaLista(){
+        items = new ArrayList<AcontecimientoItem>();
+        //Aqui creamos la bbdd
+        AcontecimientosSQLiteHelper usdbh = new  AcontecimientosSQLiteHelper(this,"test.db", null, 1);
+        //Hacemos una comprobacion de si la bbdd que hemos creado existe.
+        if(usdbh == null){
+            //que no existe, pues enviamos un mylog.
+            MyLog.i(ACTIVITY, "no hay Acontecimientos");
+        }else{//que existe pues lo muestra.
+            SQLiteDatabase db = usdbh.getReadableDatabase();
+            String[] args = new String[] {};
+            Cursor cursor = db.rawQuery(" SELECT id,nombre,inicio,fin FROM acontecimiento ORDER BY inicio DESC ", args);
+            // Se inicializa el RecyclerView y se crea,
+            final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            //Nos aseguramos de que existe al menos un registro
+            if (cursor.moveToFirst()) {
+                items.removeAll(items);
+
+                //Recorremos el cursor hasta que no haya más registros
+                do{
+                    //recogemos los datos y los asignamos a una variable.
+                    String id =cursor.getString(cursor.getColumnIndex("id"));
+                    String nombreAcontecimiento = cursor.getString(cursor.getColumnIndex("nombre"));
+                    String inicioSinFormato = cursor.getString(cursor.getColumnIndex("inicio"));
+                    // Formato para parsear
+                    SimpleDateFormat dateParse = new SimpleDateFormat("yyyymmddhhmm");
+                    // el que formatea
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    //creamos el date
+                    Date date = null;
+                    try {
+                        date = dateParse.parse(inicioSinFormato);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String inicio=dateFormat.format(date);
+                    String finSinFormato = cursor.getString(cursor.getColumnIndex("fin"));
+
+                    try {
+                        date = dateParse.parse(finSinFormato);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String fin=dateFormat.format(date);
+                    items.add(new AcontecimientoItem(id,nombreAcontecimiento,inicio,fin));
+
+                }while(cursor.moveToNext());
+
+                // Se crea el Adaptador con los datos
+                AcontecimientoAdapter adaptador = new AcontecimientoAdapter(items);
+
+                // Se asocia el elemento con una acción al pulsar el elemento
+                adaptador.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        int position = recyclerView.getChildAdapterPosition(v);
+                        // Acción al pulsar el elemento
+                        //Para pasar los datos al fichero de Ajustes
+                        SharedPreferences prefs =
+                                getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("id", items.get(position).getId());
+                        System.out.println(items.get(position));
+                        System.out.println(items.get(position).getId());
+                        editor.commit();
+                        //abrimos la nueva actividad
+                        startActivity(new Intent(lista_aconteciActivity.this, mostrar_acontecimiento.class));
+                        MyLog.d(ACTIVITY, "Click en RecyclerView");
+                    }
+                });
+
+                // Se asocia el Adaptador al RecyclerView
+                recyclerView.setAdapter(adaptador);
+
+                // Se muestra el RecyclerView en vertical
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }else{
+                Snackbar.make(recyclerView, "No hay acontecimientos", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            //fin else arriba
+        }
     }
 }

@@ -28,17 +28,25 @@ public class AcontecimientoAdapter
             extends RecyclerView.ViewHolder {
 
         private TextView TextView_nombre;
-        private TextView TextView_id;
+        //private TextView TextView_id;
+        private TextView TextView_fechaInicio;
+        private TextView TextView_fechaFin;
 
         public AcontecimientoViewHolder(View itemView) {
             super(itemView);
-            TextView_id = (TextView) itemView.findViewById(R.id.TextView_id);
+            //TextView_id = (TextView) itemView.findViewById(R.id.TextView_id);
             TextView_nombre = (TextView) itemView.findViewById(R.id.TextView_nombre);
+            TextView_fechaInicio = (TextView) itemView.findViewById(R.id.textView_row_fecha_inicio);
+            TextView_fechaFin = (TextView) itemView.findViewById(R.id.textView_row_fecha_fin);
         }
 
         public void AcontecimientoBind(AcontecimientoItem item) {
-            TextView_id.setText(item.getId());
+            //TextView_id.setText(item.getId());
             TextView_nombre.setText(item.getNombre());
+            TextView_fechaInicio.setText(item.getFechaInicio());
+            if(item.getFechaInicio()!=item.getFechaFin()){
+                TextView_fechaFin.setText(item.getFechaFin());
+            }
         }
     }
 
