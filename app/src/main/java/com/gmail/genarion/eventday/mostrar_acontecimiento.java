@@ -1,6 +1,7 @@
 package com.gmail.genarion.eventday;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,10 +20,13 @@ import android.widget.TextView;
 public class mostrar_acontecimiento extends AppCompatActivity {
     private TextView tv;
     private ImageView iv;
+    private Context context;
+    private String id;
     private final String ACTIVITY = "mostrar_Acontecimiento";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_mostrar_acontecimiento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,8 +41,27 @@ public class mostrar_acontecimiento extends AppCompatActivity {
 
         SharedPreferences prefs =
                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
-        String id = prefs.getString("id_acontecimiento", "0");
+        id = prefs.getString("id_acontecimiento", "0");
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fabMostrar_Acontecimiento);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              AcontecimientosSQLiteHelper    usdbh =
+                        new AcontecimientosSQLiteHelper (context, "Eventgo.db", null, 1);
+                //instancia la db.
+                SQLiteDatabase db = usdbh.getReadableDatabase();
 
+                String[] argsID = new String[] {id};
+                Cursor cursor = db.rawQuery(" SELECT * FROM evento WHERE id=? ", argsID);
+                //Nos aseguramos de que existe al menos un registro
+                if (cursor.moveToFirst()) {
+                    startActivity(new Intent(getApplicationContext(), EventosActivity.class));
+                }else{
+                    Snackbar.make(view, "No hay eventos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+        });
         //leer de la base de datos.
         AcontecimientosSQLiteHelper usdbh =
                 //new AcontecimientosSQLiteHelper(this, Environment.getExternalStorageDirectory()+"/DBAcontecimientos.db", null, 1);
