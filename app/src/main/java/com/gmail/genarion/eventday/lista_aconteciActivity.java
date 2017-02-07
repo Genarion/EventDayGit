@@ -50,32 +50,6 @@ public class lista_aconteciActivity extends AppCompatActivity {
         // Crear elementos
         rellenaLista();
 
-
-
-        // Se inicializa el RecyclerView
-        //final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        // Se crea el Adaptador con los datos
-        //AcontecimientoAdapter adaptador = new AcontecimientoAdapter(items);
-
-        // Se asocia el elemento con una acción al pulsar el elemento
-        //adaptador.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-                // Acción al pulsar el elemento
-        //        MyLog.d("ACTIVITY", "Click en RecyclerView");
-        //        int position = recyclerView.getChildAdapterPosition(v);
-        //        Toast toast = Toast.makeText(lista_aconteciActivity.this, String.valueOf(position) + " " + items.get(position).getId() + " " + items.get(position).getNombre(), Toast.LENGTH_SHORT);
-        //        toast.show();
-        //    }
-        //});
-
-        // Se asocia el Adaptador al RecyclerView
-        //recyclerView.setAdapter(adaptador);
-
-        // Se muestra el RecyclerView en vertical
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
@@ -91,6 +65,10 @@ public class lista_aconteciActivity extends AppCompatActivity {
             case R.id.acerca_de:
                 Intent intent = new Intent(this, acerca_de.class);
                 this.startActivity(intent);
+                break;
+            case R.id.configuration:
+                Intent intent2 = new Intent(this,SettingsActivity.class);
+                this.startActivity(intent2);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

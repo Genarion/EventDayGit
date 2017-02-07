@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.gmail.genarion.eventday.lista_aconteciActivity">
 
+    <item android:id="@+id/configuration"
+        android:title="@string/settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
     <item android:id="@+id/acerca_de"
-        android:title="Acerca de"
+        android:title="@string/acerca_de"
         android:orderInCategory="100" />
 
 </menu>
