@@ -32,7 +32,7 @@ public class EventosActivity extends AppCompatActivity implements listadoEventos
         }else{
             mostrarEventoFragment newmostrarEventFrag = new mostrarEventoFragment();
             Bundle args = new Bundle();
-            args.putString("id", String.valueOf(id));
+            args.putString("id", id);
 
             newmostrarEventFrag.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

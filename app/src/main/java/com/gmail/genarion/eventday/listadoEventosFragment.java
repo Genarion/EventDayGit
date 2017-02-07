@@ -109,6 +109,7 @@ public class listadoEventosFragment extends ListFragment {
         // We need to use a different list item layout for devices older than Honeycomb
         int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                 android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+
         SharedPreferences prefs = getActivity().getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
         //recogemos
         id_Acon = prefs.getString("id", "Error al coger preferencias");
@@ -118,7 +119,7 @@ public class listadoEventosFragment extends ListFragment {
 
 
         String[] argsID = new String[]{id_Acon};
-        Cursor cursor = db.rawQuery(" SELECT id,nombre FROM evento WHERE id=? ", argsID);
+        Cursor cursor = db.rawQuery(" SELECT id,nombre FROM evento WHERE id_acontecimiento=? ", argsID);
 
         //Nos aseguramos de que existe al menos un registro
         if (cursor.moveToFirst()) {

@@ -64,7 +64,6 @@ public class AnadirAcontecimientoAsyncTask extends AsyncTask<String, String, Str
 
 
         try {
-            //URL url = new URL("http://mieventorafa.hol.es/api/v1/acontecimiento/"+id);
             URL url = new URL("http://amferrer.hol.es/api/v1/acontecimiento/" + id);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());

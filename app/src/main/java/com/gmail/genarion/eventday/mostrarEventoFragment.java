@@ -50,7 +50,7 @@ public class mostrarEventoFragment extends Fragment {
     public void updateView(String id){
         //leer de la base de datos.
         AcontecimientosSQLiteHelper usdbh =
-                new AcontecimientosSQLiteHelper(getActivity(), "Eventgo.db", null, 1);
+                new AcontecimientosSQLiteHelper(getActivity(), "test.db", null, 1);
         //instancia la db.
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
@@ -75,16 +75,16 @@ public class mostrarEventoFragment extends Fragment {
                 String latitud = cursor.getString(cursor.getColumnIndex("latitud"));
                 //borramos la lista para que la vuelva a pintar
                 layoutPrincipal.removeAllViewsInLayout();
-                if (!nombreEvento.isEmpty()) crearElementoVista(nombreEvento, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!descripcion.isEmpty()) crearElementoVista(descripcion, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!inicio.isEmpty()) crearElementoVista(inicio, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!fin.isEmpty()) crearElementoVista(fin, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!direccion.isEmpty()) crearElementoVista(direccion, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!localidad.isEmpty()) crearElementoVista(localidad, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!codPostal.isEmpty()) crearElementoVista(codPostal, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!provincia.isEmpty()) crearElementoVista(provincia, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!longitud.isEmpty()) crearElementoVista(longitud, R.drawable.ic_info_black_24dp, layoutPrincipal);
-                if(!latitud.isEmpty()) crearElementoVista(latitud, R.drawable.ic_info_black_24dp, layoutPrincipal);
+                if (!nombreEvento.isEmpty()) crearElementoVista(nombreEvento, R.drawable.ic_nombre_acontecimiento, layoutPrincipal);
+                if(!descripcion.isEmpty()) crearElementoVista(descripcion, R.drawable.ic_descripcion, layoutPrincipal);
+                if(!inicio.isEmpty()) crearElementoVista(inicio, R.drawable.ic_inicio, layoutPrincipal);
+                if(!fin.isEmpty()) crearElementoVista(fin, R.drawable.ic_fin, layoutPrincipal);
+                if(!direccion.isEmpty()) crearElementoVista(direccion, R.drawable.ic_direccion, layoutPrincipal);
+                if(!localidad.isEmpty()) crearElementoVista(localidad, R.drawable.ic_localiadd, layoutPrincipal);
+                if(!codPostal.isEmpty()) crearElementoVista(codPostal, R.drawable.ic_codigo_postal, layoutPrincipal);
+                if(!provincia.isEmpty()) crearElementoVista(provincia, R.drawable.ic_provincia, layoutPrincipal);
+                if(!longitud.isEmpty()) crearElementoVista(longitud, R.drawable.ic_longitud, layoutPrincipal);
+                if(!latitud.isEmpty()) crearElementoVista(latitud, R.drawable.ic_latitud, layoutPrincipal);
             }while(cursor.moveToNext());
         }
     }
