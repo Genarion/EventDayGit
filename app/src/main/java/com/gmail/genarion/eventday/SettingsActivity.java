@@ -132,7 +132,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 PreferenceManager.getDefaultSharedPreferences(
                         SettingsActivity.this);
         String languageToLoad  = pref.getString("language", "default"); // your language
-        System.out.println(pref.getString("language", "default"));
+        //System.out.println(pref.getString("language", "default"));
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();

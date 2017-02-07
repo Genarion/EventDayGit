@@ -182,8 +182,8 @@ public class lista_aconteciActivity extends AppCompatActivity {
                                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("id", items.get(position).getId());
-                        System.out.println(items.get(position));
-                        System.out.println(items.get(position).getId());
+                        //System.out.println(items.get(position));
+                        //System.out.println(items.get(position).getId());
                         editor.commit();
                         //abrimos la nueva actividad
                         startActivity(new Intent(lista_aconteciActivity.this, mostrar_acontecimiento.class));
