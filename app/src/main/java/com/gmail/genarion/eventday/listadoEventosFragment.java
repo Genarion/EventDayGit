@@ -1,6 +1,9 @@
 package com.gmail.genarion.eventday;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -30,7 +35,10 @@ public class listadoEventosFragment extends ListFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private String id_Acon;
+    private ListView listView;
+    private ArrayList<EventoItem> items;
+    private EventoAdapter eventosAdapter;
     private OnFragmentInteractionListener mListener;
 
     public listadoEventosFragment() {
@@ -45,7 +53,7 @@ public class listadoEventosFragment extends ListFragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment listadoEventosFragment.
      */
-    // TODO: Rename and change types and number of parameters
+    // TODO: Rename and change types and number of parameter
     public static listadoEventosFragment newInstance(String param1, String param2) {
         listadoEventosFragment fragment = new listadoEventosFragment();
         Bundle args = new Bundle();
@@ -70,8 +78,9 @@ public class listadoEventosFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_listado_eventos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_listado_eventos, container, false);
+        listView = (ListView) rootView.findViewById(android.R.id.list);
+        return rootView;
     }
 
     @Override
@@ -94,6 +103,49 @@ public class listadoEventosFragment extends ListFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //int num = getArguments().getInt(ARG_SECTION_NUMBER);
+
+        // We need to use a different list item layout for devices older than Honeycomb
+        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+        //recogemos
+        id_Acon = prefs.getString("id", "Error Con el SharePreferences");
+        AcontecimientosSQLiteHelper usdbh =
+                new AcontecimientosSQLiteHelper(getActivity(), "test.db", null, 1);
+        SQLiteDatabase db = usdbh.getReadableDatabase();
+
+
+        String[] argsID = new String[]{id_Acon};
+        Cursor cursor = db.rawQuery(" SELECT id,nombre FROM evento WHERE id=? ", argsID);
+
+        //Nos aseguramos de que existe al menos un registro
+        if (cursor.moveToFirst()) {
+            items = new ArrayList<EventoItem>();
+            do {
+//recogemos los datos
+                String id = cursor.getString(cursor.getColumnIndex("id"));
+                String nombreAcontecimiento = cursor.getString(cursor.getColumnIndex("nombre"));
+                items.add(new EventoItem(id, nombreAcontecimiento));
+            } while (cursor.moveToNext());
+        }
+        eventosAdapter = new EventoAdapter(getActivity(),layout, items);
+        listView.setAdapter(eventosAdapter);
+
+    }
+
+    @Override
+    public void onListItemClick(ListView l,View v , int position,long id){
+        if(mListener != null){
+            mListener.onFragmentInteraction(position,items.get(position).getId());
+        }
+        getListView().setItemChecked(position,true);
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
@@ -111,6 +163,6 @@ public class listadoEventosFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int position,String id);
     }
 }

@@ -8,13 +8,13 @@
     android:orientation="horizontal"
     tools:context=".EventosActivity">
 
-    <fragment android:name="com.gmail.genarion.eventday.listadoFragment"
+    <fragment android:name="com.gmail.genarion.eventday.listadoEventosFragment"
         android:id="@+id/listado_fragment"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>
-    <fragment android:name="com.gmail.genarion.eventday.contenidoFragment"
-        android:id="@+id/contenido_fragment"
+    <fragment android:name="com.gmail.genarion.eventday.mostrarEventoFragment"
+        android:id="@+id/mostrar_fragment"
         android:layout_weight="2"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>

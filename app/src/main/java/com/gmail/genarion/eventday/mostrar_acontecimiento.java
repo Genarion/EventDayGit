@@ -47,7 +47,7 @@ public class mostrar_acontecimiento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
               AcontecimientosSQLiteHelper    usdbh =
-                        new AcontecimientosSQLiteHelper (context, "Eventgo.db", null, 1);
+                        new AcontecimientosSQLiteHelper (context, "test.db", null, 1);
                 //instancia la db.
                 SQLiteDatabase db = usdbh.getReadableDatabase();
 
