@@ -25,7 +25,7 @@ public class EventoAdapter  extends ArrayAdapter<EventoItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.listado_eventos, parent, false);
+        View view = inflater.inflate(R.layout.rowlistadoevento, parent, false);
         TextView textView = (TextView) view.findViewById(R.id.textView_nombre_evento);
         textView.setText(items.get(position).getNombre());
         return view;

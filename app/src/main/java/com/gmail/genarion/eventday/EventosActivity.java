@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class EventosActivity extends AppCompatActivity {
+public class EventosActivity extends AppCompatActivity implements listadoEventosFragment.OnFragmentInteractionListener{
 
     public static Context context;
     @Override
@@ -24,8 +24,8 @@ public class EventosActivity extends AppCompatActivity {
 
     }
 
-    public void onFragmentInteraction(int position,int id){
-        mostrarEventoFragment mostrarEventFrag = (mostrarEventoFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMostrarEvento);
+    public void onFragmentInteraction(int position,String id){
+        mostrarEventoFragment mostrarEventFrag = (mostrarEventoFragment) getSupportFragmentManager().findFragmentById(R.id.mostrar_fragment);
 
         if(mostrarEventFrag != null){
             mostrarEventFrag.updateView(id);

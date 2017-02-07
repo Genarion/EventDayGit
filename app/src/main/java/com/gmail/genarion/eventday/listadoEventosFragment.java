@@ -70,9 +70,9 @@ public class listadoEventosFragment extends ListFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-        String provincias[] = {"Cordoba","Baena","Suiza","Nueza zelanda","New York","Miami","Caceres"};
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout,provincias));
+        //int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+        //String provincias[] = {"Cordoba","Baena","Suiza","Nueza zelanda","New York","Miami","Caceres"};
+        //setListAdapter(new ArrayAdapter<String>(getActivity(), layout,provincias));
     }
 
     @Override
@@ -86,7 +86,7 @@ public class listadoEventosFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(getFragmentManager().findFragmentById(R.id.contenido_fragment) != null){
+        if(getFragmentManager().findFragmentById(R.id.mostrar_fragment) != null){
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
     }
@@ -97,8 +97,7 @@ public class listadoEventosFragment extends ListFragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new RuntimeException(context.toString()+ " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -110,10 +109,9 @@ public class listadoEventosFragment extends ListFragment {
         // We need to use a different list item layout for devices older than Honeycomb
         int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                 android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-        SharedPreferences prefs =
-                getActivity().getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
         //recogemos
-        id_Acon = prefs.getString("id", "Error Con el SharePreferences");
+        id_Acon = prefs.getString("id", "Error al coger preferencias");
         AcontecimientosSQLiteHelper usdbh =
                 new AcontecimientosSQLiteHelper(getActivity(), "test.db", null, 1);
         SQLiteDatabase db = usdbh.getReadableDatabase();
