@@ -17,10 +17,12 @@ public class logoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
+
+        //obtengo las sharedpreferences para obtener el valor del idioma y lo establezco a la app
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        String languageToLoad  = pref.getString("lenguajes", "default"); // your language
-        //System.out.println(pref.getString("language", "default"));
+        String languageToLoad  = pref.getString("lenguajes", "default");
+
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();

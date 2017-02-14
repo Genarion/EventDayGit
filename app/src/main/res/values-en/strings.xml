@@ -6,6 +6,7 @@
     <string name="title_activity_anadir_acontecimiento">Add Events</string>
     <string name="title_activity_acerca_de">About us</string>
     <string name="title_activity_mostrar_acontecimiento">Show Events</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="acerca_de">About Us</string>
     <string name="settings">Settings</string>
     <string name="language">language</string>
@@ -13,5 +14,8 @@
     <string name="botonEnviar">Send</string>
     <string name="guardarAcontecimiento">Save last Events Opened</string>
     <string name="map">Map</string>
+    <string name="desarrollado">Developed by: Mario</string>
+    <string name="licencia">GPLV3 License</string>
+    <string name="listaIdioma">Select language</string>
 
 </resources>

@@ -6,7 +6,7 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:defaultValue="en"
-        android:dialogTitle="Indicar Pais"
+        android:dialogTitle="@string/listaIdioma"
         android:entries="@array/pais"
         android:entryValues="@array/codigopais"
          />

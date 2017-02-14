@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class EventoAdapter  extends ArrayAdapter<EventoItem> {
     private final ArrayList<EventoItem> items;
     private final Context context;
-
+    //Adaptador para eventos
     public EventoAdapter(Context context, int textViewResourceId,ArrayList<EventoItem> items) {
         super(context,textViewResourceId,items);
         this.items = items;

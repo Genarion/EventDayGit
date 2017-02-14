@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_acerca_de">
 
     <TextView
-        android:text="Desarrollado por: Mario"
+        android:text="@string/desarrollado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17dp"
@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Aqui establecere todas las licencias que vaya necesitando"
+        android:text="@string/licencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"

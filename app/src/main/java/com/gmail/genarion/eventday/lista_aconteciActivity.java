@@ -29,7 +29,7 @@ public class lista_aconteciActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //Obtengo las preferencias y el booleano guardarAcontecimiento para lanzar la actividad mostrarAconte o no
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(
                 this);
         boolean ultimoAconteci=pref.getBoolean("guardarAcontecimiento", false);
@@ -44,6 +44,7 @@ public class lista_aconteciActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_lista_aconteci);
+        //Up button
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -137,7 +138,7 @@ public class lista_aconteciActivity extends AppCompatActivity {
     private void rellenaLista(){
         items = new ArrayList<AcontecimientoItem>();
         //Aqui creamos la bbdd
-        AcontecimientosSQLiteHelper usdbh = new  AcontecimientosSQLiteHelper(this,"test.db", null, 1);
+        AcontecimientosSQLiteHelper usdbh = new  AcontecimientosSQLiteHelper(this,"test1.db", null, 1);
         //Hacemos una comprobacion de si la bbdd que hemos creado existe.
         if(usdbh == null){
             //que no existe, pues enviamos un mylog.

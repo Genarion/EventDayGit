@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +54,7 @@ public class mostrarEventoFragment extends Fragment {
     public void updateView(String id){
         //leer de la base de datos.
         AcontecimientosSQLiteHelper usdbh =
-                new AcontecimientosSQLiteHelper(getActivity(), "test.db", null, 1);
+                new AcontecimientosSQLiteHelper(getActivity(), "test1.db", null, 1);
         //instancia la db.
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
@@ -66,7 +70,24 @@ public class mostrarEventoFragment extends Fragment {
                 String nombreEvento = cursor.getString(cursor.getColumnIndex("nombre"));
                 String descripcion = cursor.getString(cursor.getColumnIndex("descripcion"));
                 String inicio = cursor.getString(cursor.getColumnIndex("inicio"));
+                // Formato para parsear
+                SimpleDateFormat dateParse = new SimpleDateFormat("yyyymmddhhmm");
+                // el que formatea
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = dateParse.parse(inicio);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                inicio=dateFormat.format(date);
                 String fin = cursor.getString(cursor.getColumnIndex("fin"));
+                try {
+                    date = dateParse.parse(fin);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                fin=dateFormat.format(date);
                 String direccion = cursor.getString(cursor.getColumnIndex("direccion"));
                 String localidad = cursor.getString(cursor.getColumnIndex("localidad"));
                 String codPostal = cursor.getString(cursor.getColumnIndex("cod_postal"));
@@ -88,7 +109,7 @@ public class mostrarEventoFragment extends Fragment {
             }while(cursor.moveToNext());
         }
     }
-
+    //Metodo para crear los elementos en la vista con layout horizontal
     public void crearElementoVista(String nombre, int rutaImage, LinearLayout layout){
         //creamos el segundo Layout.
         LinearLayout milayout = new LinearLayout(new ContextThemeWrapper(getActivity(), R.style.AppTheme));

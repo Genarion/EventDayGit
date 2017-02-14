@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class EventosActivity extends AppCompatActivity implements listadoEventosFragment.OnFragmentInteractionListener{
 
@@ -13,6 +15,7 @@ public class EventosActivity extends AppCompatActivity implements listadoEventos
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(findViewById(R.id.unique_fragment) != null){
             if (savedInstanceState == null) {

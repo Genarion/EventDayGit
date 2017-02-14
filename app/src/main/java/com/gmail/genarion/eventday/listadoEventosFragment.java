@@ -55,6 +55,7 @@ public class listadoEventosFragment extends ListFragment {
      */
     // TODO: Rename and change types and number of parameter
     public static listadoEventosFragment newInstance(String param1, String param2) {
+
         listadoEventosFragment fragment = new listadoEventosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -114,7 +115,7 @@ public class listadoEventosFragment extends ListFragment {
         //recogemos
         id_Acon = prefs.getString("id", "Error al coger preferencias");
         AcontecimientosSQLiteHelper usdbh =
-                new AcontecimientosSQLiteHelper(getActivity(), "test.db", null, 1);
+                new AcontecimientosSQLiteHelper(getActivity(), "test1.db", null, 1);
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
 
@@ -125,14 +126,15 @@ public class listadoEventosFragment extends ListFragment {
         if (cursor.moveToFirst()) {
             items = new ArrayList<EventoItem>();
             do {
-//recogemos los datos
+                //recogemos los datos
                 String id = cursor.getString(cursor.getColumnIndex("id"));
                 String nombreAcontecimiento = cursor.getString(cursor.getColumnIndex("nombre"));
                 items.add(new EventoItem(id, nombreAcontecimiento));
             } while (cursor.moveToNext());
+            eventosAdapter = new EventoAdapter(getActivity(),layout, items);
+            listView.setAdapter(eventosAdapter);
         }
-        eventosAdapter = new EventoAdapter(getActivity(),layout, items);
-        listView.setAdapter(eventosAdapter);
+
 
     }
 

@@ -82,7 +82,7 @@ public class AnadirAcontecimientoAsyncTask extends AsyncTask<String, String, Str
             if (jsonAcontecimientoConEventos.has("acontecimiento")) {
                 //Abrimos la base de datos 'DBUsuarios' en modo escritura //añadir Environment.getExternalStorageDirectory()+"/DBAcontecimientos.db"
                 //AcontecimientosSQLiteHelper usdbh = new AcontecimientosSQLiteHelper(this.vistaContext, Environment.getExternalStorageDirectory() + "/DBAcontecimientos.db", null, 1);
-                AcontecimientosSQLiteHelper usdbh = new AcontecimientosSQLiteHelper(this.vistaContext,"test.db" , null, 1);
+                AcontecimientosSQLiteHelper usdbh = new AcontecimientosSQLiteHelper(this.vistaContext,"test1.db" , null, 1);
 
                 SQLiteDatabase db = usdbh.getWritableDatabase();
                 if (db != null) {
@@ -134,7 +134,7 @@ public class AnadirAcontecimientoAsyncTask extends AsyncTask<String, String, Str
                             String localidadEvento = (jsonEvento.has("localidad") ? jsonEvento.getString("localidad") : "");
                             String codPostalEvento = (jsonEvento.has("codPostal") ? jsonEvento.getString("codPostal") : "");
                             String provinciaEvento = (jsonAcontecimiento.has("provincia") ? jsonAcontecimiento.getString("provincia") : "");
-                            String longitudEvento = (jsonEvento.has("longitud") ? jsonEvento.getString("latitud") : "");
+                            String longitudEvento = (jsonEvento.has("longitud") ? jsonEvento.getString("longitud") : "");
                             String latitudEvento = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud") : "");
 
                             db.delete("evento", "id" + "=" + idEvento, null);

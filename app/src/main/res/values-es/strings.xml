@@ -13,4 +13,8 @@
     <string name="botonEnviar">Enviar</string>
     <string name="guardarAcontecimiento">Guardar ultimo acontecimiento</string>
     <string name="map">Mapa</string>
+    <string name="desarrollado">Desarrollado por: Mario</string>
+    <string name="licencia">Licencia GPLV3</string>
+    <string name="title_activity_settings">Configuracion</string>
+    <string name="listaIdioma">Seleccione idioma</string>
 </resources>

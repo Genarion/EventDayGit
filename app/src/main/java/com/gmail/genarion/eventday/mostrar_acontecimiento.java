@@ -18,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class mostrar_acontecimiento extends AppCompatActivity {
     private TextView tv;
     private ImageView iv;
@@ -40,15 +44,16 @@ public class mostrar_acontecimiento extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
+        //Boton para cargar el mapa de google
         botonMapa = (Button) findViewById(R.id.mapaGoogle);
-
+        //llamo a la actividad del mapa
         botonMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(context, MapsActivity.class));
             }
         });
+        //obtengo de los sharedpreferences el valor de id acontecimiento
         SharedPreferences prefs =
                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
         id = prefs.getString("id_acontecimiento", "0");
@@ -56,8 +61,8 @@ public class mostrar_acontecimiento extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              AcontecimientosSQLiteHelper    usdbh =
-                        new AcontecimientosSQLiteHelper (context, "test.db", null, 1);
+                AcontecimientosSQLiteHelper    usdbh =
+                        new AcontecimientosSQLiteHelper (context, "test1.db", null, 1);
                 //instancia la db.
                 SQLiteDatabase db = usdbh.getReadableDatabase();
 
@@ -75,7 +80,7 @@ public class mostrar_acontecimiento extends AppCompatActivity {
         //leer de la base de datos.
         AcontecimientosSQLiteHelper usdbh =
                 //new AcontecimientosSQLiteHelper(this, Environment.getExternalStorageDirectory()+"/DBAcontecimientos.db", null, 1);
-                new AcontecimientosSQLiteHelper(this, "test.db", null, 1);
+                new AcontecimientosSQLiteHelper(this, "test1.db", null, 1);
         //instancia la db.
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
@@ -97,7 +102,24 @@ public class mostrar_acontecimiento extends AppCompatActivity {
                 String tipo = cursor.getString(cursor.getColumnIndex("tipo"));
                 String portada = cursor.getString(cursor.getColumnIndex("portada"));
                 String inicio = cursor.getString(cursor.getColumnIndex("inicio"));
+                // Formato para parsear
+                SimpleDateFormat dateParse = new SimpleDateFormat("yyyymmddhhmm");
+                // el que formatea
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = dateParse.parse(inicio);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                inicio=dateFormat.format(date);
                 String fin = cursor.getString(cursor.getColumnIndex("fin"));
+                try {
+                    date = dateParse.parse(fin);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                fin=dateFormat.format(date);
                 String direccion = cursor.getString(cursor.getColumnIndex("direccion"));
                 String localidad = cursor.getString(cursor.getColumnIndex("localidad"));
                 String codPostal = cursor.getString(cursor.getColumnIndex("cod_postal"));
@@ -136,6 +158,7 @@ public class mostrar_acontecimiento extends AppCompatActivity {
                 if(!instagram.isEmpty()) crearLayoutConImagen(instagram, R.drawable.ic_instagram,layoutPrincipal);
             }while(cursor.moveToNext());
         }
+        usdbh.close();
     }
     public void crearLayoutConImagen(String nombre, int rutaImage, LinearLayout layout){
         //creamos el segundo Layout.

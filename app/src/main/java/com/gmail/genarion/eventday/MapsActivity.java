@@ -56,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //recogemos
         String id = prefs.getString("id", "");
         AcontecimientosSQLiteHelper usdbh =
-                new AcontecimientosSQLiteHelper(this, "test.db", null, 1);
+                new AcontecimientosSQLiteHelper(this, "test1.db", null, 1);
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
 
@@ -75,21 +75,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }while(cursor.moveToNext());
         }
-        // Add a marker in AcontecimientoActual and move the camera
+        // Añado el marcador del acontecimiento
         LatLng AcontecimientoActual = new LatLng(latitudAcontecimiento, longitudAcontecimiento);
         mMap.addMarker(new MarkerOptions().position(AcontecimientoActual).title(nombreAcontecimiento)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_play_light));
+        //Muevo la camara a la localizacion de acontecimiento
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(AcontecimientoActual,16));
+        //Si tiene eventos
         if (cursorEven.moveToFirst()) {
             LatLng EventoActual;
             do{
-//recogemos los datos
+                //recogemos los datos
                 nombreEvento = cursorEven.getString(cursorEven.getColumnIndex("nombre"));
                 if(!cursorEven.getString(cursorEven.getColumnIndex("longitud")).isEmpty()&& !cursorEven.getString(cursorEven.getColumnIndex("latitud")).isEmpty()) {
                     longitudEvento = Float.parseFloat(cursorEven.getString(cursorEven.getColumnIndex("longitud")));
                     latitudEvento = Float.parseFloat(cursorEven.getString(cursorEven.getColumnIndex("latitud")));
+                    EventoActual = new LatLng(latitudEvento, longitudEvento);//BitmapDescriptorFactory.fromResource(R.drawable.ic_tv_light)
+                    mMap.addMarker(new MarkerOptions().position(EventoActual).title(nombreEvento)).setIcon(BitmapDescriptorFactory.defaultMarker());
                 }
-                EventoActual = new LatLng(latitudEvento, longitudEvento);
-                mMap.addMarker(new MarkerOptions().position(EventoActual).title(nombreEvento)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_tv_light));
 
             }while(cursorEven.moveToNext());
         }
