@@ -128,11 +128,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        //Intent i = getBaseContext().getPackageManager()
+        //        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(i);
+
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(
                         SettingsActivity.this);
-        String languageToLoad  = pref.getString("language", "default"); // your language
-        //System.out.println(pref.getString("language", "default"));
+        String languageToLoad  = pref.getString("language", "default");
+
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -197,10 +202,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.language);
+            addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
             //
-            bindPreferenceSummaryToValue(findPreference("language"));
+            bindPreferenceSummaryToValue(findPreference("lenguajes"));
         }
 
         @Override

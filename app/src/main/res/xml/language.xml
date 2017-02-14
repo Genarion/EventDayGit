@@ -6,6 +6,6 @@
         android:title="@string/language"
         android:summary="language"
         android:dialogTitle="@string/languageDescription"
-        android:entries="@array/Language"
-        android:entryValues="@array/LanguageCode" />
+        android:entries="@array/pais"
+        android:entryValues="@array/codigopais" />
 </PreferenceScreen>

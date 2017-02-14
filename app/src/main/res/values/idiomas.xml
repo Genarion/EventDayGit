@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="Language">
+    <string-array name="pais">
         <item>Español</item>
         <item>English</item>
     </string-array>
-    <string-array name="LanguageCode">
+    <string-array name="codigopais">
         <item>es</item>
         <item>en</item>
     </string-array>

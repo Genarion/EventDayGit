@@ -5,11 +5,12 @@
     <string name="title_activity_lista_aconteci">Lista de Acontecimientos</string>
     <string name="title_activity_anadir_acontecimiento">Agregar Acontecimiento</string>
     <string name="title_activity_acerca_de">Acerca de</string>
-    <string name="title_activity_mostrar_acontecimiento">Mostrar Eventos</string>
+    <string name="title_activity_mostrar_acontecimiento">Mostrar Acontecimiento</string>
     <string name="acerca_de">Acerca de</string>
     <string name="settings">Configuracion</string>
     <string name="language">Idioma</string>
     <string name="languageDescription">Elige tu idioma</string>
     <string name="botonEnviar">Enviar</string>
-
+    <string name="guardarAcontecimiento">Guardar ultimo acontecimiento</string>
+    <string name="map">Mapa</string>
 </resources>

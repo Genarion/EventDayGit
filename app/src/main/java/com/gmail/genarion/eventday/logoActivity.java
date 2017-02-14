@@ -19,7 +19,7 @@ public class logoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        String languageToLoad  = pref.getString("language", "default"); // your language
+        String languageToLoad  = pref.getString("lenguajes", "default"); // your language
         //System.out.println(pref.getString("language", "default"));
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);

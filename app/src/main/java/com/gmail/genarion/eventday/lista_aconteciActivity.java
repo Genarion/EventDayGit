@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,20 @@ public class lista_aconteciActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(
+                this);
+        boolean ultimoAconteci=pref.getBoolean("guardarAcontecimiento", false);
+        if(ultimoAconteci){
+            SharedPreferences prefs = getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+            //recogemos
+            String id = prefs.getString("id", "");
+            if(!id.equals("")){
+                this.startActivity(new Intent(this, mostrar_acontecimiento.class));
+            }
+        }
+
+
         setContentView(R.layout.activity_lista_aconteci);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

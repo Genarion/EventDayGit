@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class mostrar_acontecimiento extends AppCompatActivity {
     private ImageView iv;
     private Context context;
     private String id;
+    private Button botonMapa;
     private final String ACTIVITY = "mostrar_Acontecimiento";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,14 @@ public class mostrar_acontecimiento extends AppCompatActivity {
             }
         });
 
+        botonMapa = (Button) findViewById(R.id.mapaGoogle);
+
+        botonMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context, MapsActivity.class));
+            }
+        });
         SharedPreferences prefs =
                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
         id = prefs.getString("id_acontecimiento", "0");
@@ -112,8 +122,12 @@ public class mostrar_acontecimiento extends AppCompatActivity {
                 if(!localidad.isEmpty()) crearLayoutConImagen(localidad, R.drawable.ic_localiadd, layoutPrincipal);
                 if(!codPostal.isEmpty()) crearLayoutConImagen(codPostal, R.drawable.ic_codigo_postal, layoutPrincipal);
                 if(!provincia.isEmpty()) crearLayoutConImagen(provincia, R.drawable.ic_provincia, layoutPrincipal);
-                if(!longitud.isEmpty()) crearLayoutConImagen(longitud, R.drawable.ic_longitud, layoutPrincipal);
-                if(!latitud.isEmpty()) crearLayoutConImagen(latitud, R.drawable.ic_latitud, layoutPrincipal);
+                if(longitud.isEmpty()){
+                    botonMapa.setVisibility(View.INVISIBLE);
+                }
+                if(latitud.isEmpty()){
+                    botonMapa.setVisibility(View.INVISIBLE);
+                }
                 if(!telefono.isEmpty()) crearLayoutConImagen(telefono, R.drawable.ic_telefono, layoutPrincipal);
                 if(!email.isEmpty()) crearLayoutConImagen(email, R.drawable.ic_email, layoutPrincipal);
                 if(!web.isEmpty()) crearLayoutConImagen(web , R.drawable.ic_web, layoutPrincipal);

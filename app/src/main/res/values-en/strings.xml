@@ -11,5 +11,7 @@
     <string name="language">language</string>
     <string name="languageDescription">Choose your Language</string>
     <string name="botonEnviar">Send</string>
+    <string name="guardarAcontecimiento">Save last Events Opened</string>
+    <string name="map">Map</string>
 
 </resources>
